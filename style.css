@@ -1415,24 +1415,19 @@ body {
 }
 
 .reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.7s ease, transform 0.7s ease;
 }
-.reveal.visible {
+/* JS adiciona .js-reveal-ready no <html> antes de esconder os elementos */
+.js-reveal-ready .reveal {
+  opacity: 0;
+  transform: translateY(28px);
+}
+.js-reveal-ready .reveal.visible {
   opacity: 1;
   transform: translateY(0);
 }
-
-/* Fallback: se JS não rodar, tudo aparece */
-@media (scripting: none) {
-  .reveal { opacity: 1; transform: none; }
-}
-
-/* Respeita preferência de animação reduzida */
 @media (prefers-reduced-motion: reduce) {
-  .reveal { transition: none; opacity: 1; transform: none; }
+  .js-reveal-ready .reveal { opacity: 1; transform: none; }
 }
 
 /* ========== MOBILE MENU ========== */
