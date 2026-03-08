@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.pinheirowebstudio.netlify.app/sitemap.xml
