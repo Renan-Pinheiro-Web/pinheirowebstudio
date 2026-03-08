@@ -30,44 +30,22 @@ document.querySelectorAll(".faq-question").forEach((btn) => {
   });
 });
 
-// Reveal com fallback robusto para CDN/Netlify
-function initReveal() {
-  const els = document.querySelectorAll(".reveal");
+// Marca o html com a classe ANTES de esconder qualquer elemento
+// Se o JS não rodar, conteúdo fica visível normalmente
+document.documentElement.classList.add("js-reveal-ready");
 
-  // Fallback: se JS demorar, garante que nada fica invisível
-  const safetyTimeout = setTimeout(() => {
-    els.forEach((el) => el.classList.add("visible"));
-  }, 2000);
-
-  if (!("IntersectionObserver" in window)) {
-    clearTimeout(safetyTimeout);
-    els.forEach((el) => el.classList.add("visible"));
-    return;
-  }
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.05, rootMargin: "0px 0px -20px 0px" },
-  );
-
-  els.forEach((el) => observer.observe(el));
-
-  // Cancela o safety timeout se o observer funcionar
-  setTimeout(() => clearTimeout(safetyTimeout), 500);
-}
-
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initReveal);
-} else {
-  initReveal();
-}
+const observer = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  },
+  { threshold: 0.05, rootMargin: "0px 0px -30px 0px" },
+);
+document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
 
 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   anchor.addEventListener("click", function (e) {
