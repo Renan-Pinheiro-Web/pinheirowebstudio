@@ -5,14 +5,9 @@ window.addEventListener("scroll", () =>
 
 const hamburger = document.getElementById("hamburgerBtn");
 const mobileMenu = document.getElementById("mobileMenu");
-const mobileClose = document.getElementById("mobileClose");
 hamburger.addEventListener("click", () => {
   mobileMenu.classList.add("open");
   hamburger.style.visibility = "hidden";
-});
-mobileClose.addEventListener("click", () => {
-  mobileMenu.classList.remove("open");
-  hamburger.style.visibility = "visible";
 });
 function closeMobile() {
   mobileMenu.classList.remove("open");
@@ -30,8 +25,6 @@ document.querySelectorAll(".faq-question").forEach((btn) => {
   });
 });
 
-// Marca o html com a classe ANTES de esconder qualquer elemento
-// Se o JS não rodar, conteúdo fica visível normalmente
 document.documentElement.classList.add("js-reveal-ready");
 
 const observer = new IntersectionObserver(
